@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Search Trains</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="from_station">From:</label>
+        {{ form.from_station }}
+        
+        <label for="to_station">To:</label>
+        {{ form.to_station }}
+        
+        <label for="date">Journey Date:</label>
+        {{ form.date }}
+        
+        <button type="submit">Search Trains</button>
+      </form>
+      
+  </div>
+{% endblock %}

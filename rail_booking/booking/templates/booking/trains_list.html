@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Available Trains</h2>
+
+    {% if trains %}
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Train Number</th>
+            <th>Train Name</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Available Seats</th>
+            <th>Fare</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for train in trains %}
+            <tr>
+              <td>{{ train.train_number }}</td>
+              <td>{{ train.train_name }}</td>
+              <td>{{ train.departure_time }}</td>
+              <td>{{ train.arrival_time }}</td>
+              <td>{{ train.available_seats }}</td>
+              <td>₹{{ train.fare }}</td>
+              <td>
+                <a href="{% url 'book_train' train.id journey_date %}">Book Now</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No trains available for the selected route and date.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'search_trains' %}">🔙 Search Again</a>
+  </div>
+{% endblock %}

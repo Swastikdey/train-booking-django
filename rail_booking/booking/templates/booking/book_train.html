@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Book Train: {{ train.train_name }} ({{ train.train_number }})</h2>
+    
+    <p><strong>From:</strong> {{ train.from_station }}</p>
+    <p><strong>To:</strong> {{ train.to_station }}</p>
+    <p><strong>Departure:</strong> {{ train.departure_time }}</p>
+    <p><strong>Arrival:</strong> {{ train.arrival_time }}</p>
+    <p><strong>Journey Date:</strong> {{ journey_date }}</p>
+    <p><strong>Available Seats:</strong> {{ train.available_seats }}</p>
+    <p><strong>Fare per Seat:</strong> ₹{{ train.fare }}</p>
+
+    <hr>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+
+    <br>
+    <a href="{% url 'trains_list' from_station=train.from_station to_station=train.to_station journey_date=journey_date %}">🔙 Back to Train List</a>
+  </div>
+{% endblock %}
