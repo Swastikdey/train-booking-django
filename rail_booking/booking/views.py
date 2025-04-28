@@ -76,3 +76,8 @@ def book_train_view(request, train_id, journey_date):
 
     return render(request, 'booking/book_train.html', {'form': form, 'train': train, 'journey_date': journey_date})
 
+
+@login_required
+def my_bookings_view(request):
+    bookings = Booking.objects.filter(user=request.user).order_by('-date_of_journey')
+    return render(request, 'booking/my_bookings.html', {'bookings': bookings})

@@ -4,7 +4,7 @@ from .models import Train, Booking
 
 @admin.register(Train)
 class TrainAdmin(admin.ModelAdmin):
-    list_display = ('train_number', 'train_name', 'from_station', 'to_station', 'departure_time', 'arrival_time', 'available_seats', 'fare')
+    list_display = ('train_number', 'train_name', 'from_station', 'to_station','date', 'departure_time', 'available_seats', 'fare')
     list_filter = ('from_station', 'to_station', 'date')
     search_fields = ('train_number', 'train_name', 'from_station', 'to_station')
     ordering = ('train_number',)
