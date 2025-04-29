@@ -10,17 +10,33 @@
     <p><strong>Arrival:</strong> {{ train.arrival_time }}</p>
     <p><strong>Journey Date:</strong> {{ journey_date }}</p>
     <p><strong>Available Seats:</strong> {{ train.available_seats }}</p>
-    <p><strong>Fare per Seat:</strong> ₹{{ train.fare }}</p>
-
     <hr>
 
     <form method="post">
       {% csrf_token %}
+      
+      <p><strong>Fare per seat:</strong> ₹<span id="fare-per-seat">{{ train.fare }}</span></p>
+      
       {{ form.as_p }}
+      <p><strong>Total fare:</strong> ₹<span id="total-fare">0</span></p>
 
       <button type="submit">Confirm Booking</button>
     </form>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const farePerSeat = parseFloat(document.getElementById('fare-per-seat').innerText);
+          const seatInput = document.getElementById('id_seats_booked');
+          const totalFareDisplay = document.getElementById('total-fare');
+  
+          function updateFare() {
+              const seats = parseInt(seatInput.value) || 0;
+              totalFareDisplay.innerText = farePerSeat * seats;
+          }
+  
+          seatInput.addEventListener('input', updateFare);
+      });
+  </script>
     <br>
     <a href="{% url 'trains_list' from_station=train.from_station to_station=train.to_station journey_date=journey_date %}">🔙 Back to Train List</a>
   </div>
